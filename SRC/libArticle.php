@@ -160,7 +160,7 @@ function subArticleEdit()
 	$sDueDTFrom   = htmlspecialchars($_REQUEST['sDueDTFrom']);
 	$sDueDTTo     = htmlspecialchars($_REQUEST['sDueDTTo']);
 	$sSellCharge  = htmlspecialchars($_REQUEST['sSellCharge']);
-	$sSellCharge  = htmlspecialchars($_REQUEST['sDrawing']);
+	$sDrawing  = htmlspecialchars($_REQUEST['sDrawing']);
 
 	$orderBy = $_REQUEST['orderBy'];
 	$orderTo = $_REQUEST['orderTo'];
