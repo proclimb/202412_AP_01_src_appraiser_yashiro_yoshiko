@@ -139,7 +139,7 @@ function fnSqlSellDelete($sellNo)
 {
 
     $sql = "UPDATE TBLSELL";
-    $sql .= " SET DEL = 1";
+    $sql .= " SET DEL = -1";
     $sql .= ",UPDT = CURRENT_TIMESTAMP";
     $sql .= " WHERE SELLNO = '$sellNo'";
 
