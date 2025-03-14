@@ -102,17 +102,16 @@ function fnGuideMove(muki, articleNo) {
 		tags = "<tr id=\"s" + articleNo + "\">";
 
 		// 物件名の作成
-		tags += "<th>" + $(obj.children()[1]).text() + "</th>";
+		tags += "<td>" + $(obj.children()[1]).text() + "</th>";
 
 		// 部屋番号の作成
 		tags += "<td>" + $(obj.children()[2]).text() + "</td>";
-		tags += "<td>" + $(obj.children()[2]).html() + "</td>";
 
 		// 鍵情報の作成
 		tags += "<td>" + $(obj.children()[3]).html() + "</td>";
 
 		// 登録ボタンの作成
-		tags += "<td><input type=\"button\" value=\"&gt;\" /></td>";
+		tags += "<td><input type=\"button\" value=\"&gt;\" onClick=\"fnGuideMove( 'toRight', '" + articleNo + "');\" /></td>";
 		tags += "</tr>";
 
 		// 検索側に追加
@@ -123,7 +122,7 @@ function fnGuideMove(muki, articleNo) {
 	}
 
 	// 色の再設定
-	$("#search tr").filter(":odd").find("td").attr("class", "list_td1");
+	$("#search tr").filter(":odd").find("td").attr("class", "list_td0");
 	$("#search tr").filter(":even").find("td").attr("class", "list_td1");
 	$("#regist tr").filter("odd").find(".td").attr("class", "list_td0");
 	$("#regist tr").filter("even").find(".td").attr("class", "list_td1");
