@@ -63,8 +63,8 @@ function fnGuideMove(muki, articleNo) {
 		var obj = $("#s" + articleNo);
 
 		// 名称の取得
-		var articleName = $(obj.children()[0]).text();
-		var articleRoom = $(obj.children()[1]).text();
+		var articleName = $(obj.children()[0]).html();
+		var articleRoom = $(obj.children()[1]).html();
 		var articleKey = $(obj.children()[2]).html();
 
 		// 登録リストに保存(右側に移動)
@@ -101,10 +101,10 @@ function fnGuideMove(muki, articleNo) {
 		tags = "<tr id=\"s" + articleNo + "\">";
 
 		// 物件名の作成
-		tags += "<td>" + $(obj.children()[1]).text() + "</th>";
+		tags += "<td>" + $(obj.children()[1]).html() + "</th>";
 
 		// 部屋番号の作成
-		tags += "<td>" + $(obj.children()[2]).text() + "</td>";
+		tags += "<td>" + $(obj.children()[2]).html() + "</td>";
 
 		// 鍵情報の作成
 		tags += "<td>" + $(obj.children()[3]).html() + "</td>";
