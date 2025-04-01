@@ -184,15 +184,15 @@ function subFTitleDelete()
         $res = mysqli_query($conn, $sql);
         while ($row = mysqli_fetch_array($res)) {
             $sql = fnSqlFTitleDelete($row['DOCNO']);
-            $result = mysqil_query($conn, $sql);
+            $result = mysqli_query($conn, $sql);
         }
+        $_REQUEST['act'] = 'fTitleSearch';
+        subFTitle();
     } else {
         $sql = fnSqlFTitleDelete($DocNo);
         $res = mysqli_query($conn, $sql);
     }
-
-    $_REQUEST['act'] = 'fTitleSearch';
-    subFTitle();
+    subTitlePage1();
 }
 
 //
