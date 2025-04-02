@@ -191,8 +191,8 @@ function subFTitleDelete()
     } else {
         $sql = fnSqlFTitleDelete($DocNo);
         $res = mysqli_query($conn, $sql);
+        subTitlePage1();
     }
-    subTitlePage1();
 }
 
 //
