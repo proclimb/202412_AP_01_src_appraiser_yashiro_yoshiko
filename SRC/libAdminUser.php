@@ -102,7 +102,13 @@ function subAdminUserEdit()
 			</tr>
 			<tr>
 				<th>ID<span class="red">（必須）</span></th>
-				<td><input type="text" name="id" value="<?php print $id; ?>" /></td>
+				<td><input type="text" name="id" value="<?php print $id; ?>" />
+					<?php
+					if (isset($_REQUEST['errMessage'])) {
+						print "<span class=\"red\" algin=\"right\">" . $_REQUEST['errMessage'] . "</span>";
+					}
+					?>
+				</td>
 			</tr>
 			<tr>
 				<th>PASS<span class="red">（必須）</span></th>
@@ -123,8 +129,6 @@ function subAdminUserEdit()
 }
 
 
-
-
 //
 //ユーザー情報編集完了処理
 //
@@ -138,6 +142,15 @@ function subAdminUserEditComplete()
 	$password  = mysqli_real_escape_string($conn, $_REQUEST['password']);
 	$authority = mysqli_real_escape_string($conn, $_REQUEST['auth']);
 
+	// 新規登録の場合のみ重複チェックを実施
+	if (!$userNo && subIDRepetition($id)) { // $userNoが存在しない場合（新規登録）
+		$errMessage = "IDが重複しています。";
+		// ユーザー情報編集画面に戻る
+		$_REQUEST['errMessage'] = $errMessage; // エラーメッセージをリクエストに保存
+		subAdminUserEdit(); // 編集画面を再表示
+		return; // 処理を中断
+	}
+
 	if ($userNo) {
 		$sql = fnSqlAdminUserUpdate($userNo, $name, $id, $password, $authority);
 		$res = mysqli_query($conn, $sql);
@@ -149,8 +162,6 @@ function subAdminUserEditComplete()
 	$_REQUEST['act'] = 'adminUser';
 	subAdminUser();
 }
-
-
 
 
 //
@@ -168,4 +179,32 @@ function subAdminUserDelete()
 	$_REQUEST['act'] = 'adminUser';
 	subAdminUser();
 }
+
+//
+// 重複ID抽出
+//
+function fnSqlIDRepetition($id)
+{
+	$id = $_REQUEST['id'];
+	$select = "SELECT USERNO,ID";
+	$from = " FROM TBLUSER";
+	$where = " WHERE DEL = 1 AND ID = '$id'";
+
+	return $select . $from . $where;
+}
+
+// ユーザーID重複チェック
+
+function subIDRepetition($id)
+{
+	$conn = fnDbConnect();
+	$sql = fnSqlIDRepetition($id);
+	$res = mysqli_query($conn, $sql);
+
+	if ($res && mysqli_num_rows($res) > 0) {
+		return true; // 重複あり
+	}
+	return false; // 重複なし
+}
+
 ?>
