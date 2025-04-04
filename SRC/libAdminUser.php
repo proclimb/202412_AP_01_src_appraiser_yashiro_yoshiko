@@ -75,7 +75,7 @@ function subAdminUserEdit()
 
 		$name      = htmlspecialchars($row[0]);
 		$id        = htmlspecialchars($row[1]);
-		$password  = htmlspecialchars($row[2]);
+		//		$password  = htmlspecialchars($row[2]);
 		$authority = htmlspecialchars($row[3]);
 
 		$purpose  = '更新';
