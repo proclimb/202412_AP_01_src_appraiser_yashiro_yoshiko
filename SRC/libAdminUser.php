@@ -75,14 +75,16 @@ function subAdminUserEdit()
 
 		$name      = htmlspecialchars($row[0]);
 		$id        = htmlspecialchars($row[1]);
-		//		$password  = htmlspecialchars($row[2]);
+		$password  = htmlspecialchars($row[2]);
 		$authority = htmlspecialchars($row[3]);
 
 		$purpose  = '更新';
 		$btnImage = 'btn_load.png';
+		$must = '';
 	} else {
 		$purpose = '登録';
 		$btnImage = 'btn_enter.png';
+		$must = '（必須）';
 	}
 
 	subMenu();
@@ -111,8 +113,8 @@ function subAdminUserEdit()
 				</td>
 			</tr>
 			<tr>
-				<th>PASS<span class="red">（必須）</span></th>
-				<td><input type="text" name="password" value="<?php print $password; ?>" /></td>
+				<th>PASS<span class="red"><?php print $must; ?></span></th>
+				<td><input type="text" name="password" value="" /></td>
 			</tr>
 			<tr>
 				<th>所属</th>
@@ -151,8 +153,11 @@ function subAdminUserEditComplete()
 		return; // 処理を中断
 	}
 
-	if ($userNo) {
-		$sql = fnSqlAdminUserUpdate($userNo, $name, $id, $password, $authority);
+	if ($userNo && isset($_REQUEST['password'])) {
+		$sql = fnSqlAdminUserUpdatePass($userNo, $name, $id, $password, $authority);
+		$res = mysqli_query($conn, $sql);
+	} elseif ($userNo && !isset($_REQUEST['password'])) {
+		$sql = fnSqlAdminUserUpdate($userNo, $name, $id, $authority);
 		$res = mysqli_query($conn, $sql);
 	} else {
 		$sql = fnSqlAdminUserInsert(fnNextNo('USER'), $name, $id, $password, $authority);
