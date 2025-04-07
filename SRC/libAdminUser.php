@@ -8,6 +8,7 @@ function subAdminUser()
 
 	subMenu();
 ?>
+	<script type="text/javascript" src="./js/adminUser.js"></script>
 	<h1>ユーザー情報画面</h1>
 
 	<form name="form" id="form" action="index.php" method="post">
@@ -124,7 +125,7 @@ function subAdminUserEdit()
 			</tr>
 		</table>
 
-		<a href="javascript:fnAdminUserEditCheck();"><img src="./images/<?php print $btnImage; ?>" /></a>　
+		<a href="javascript:fnAdminUserEditCheck();"><img src="./images/<?php print $btnImage; ?>" /></a>
 		<a href="javascript:form.act.value='adminUser';form.submit();"><img src="./images/btn_return.png" /></a>
 	</form>
 <?php
@@ -153,11 +154,8 @@ function subAdminUserEditComplete()
 		return; // 処理を中断
 	}
 
-	if ($userNo && isset($_REQUEST['password'])) {
-		$sql = fnSqlAdminUserUpdatePass($userNo, $name, $id, $password, $authority);
-		$res = mysqli_query($conn, $sql);
-	} elseif ($userNo && !isset($_REQUEST['password'])) {
-		$sql = fnSqlAdminUserUpdate($userNo, $name, $id, $authority);
+	if ($userNo) {
+		$sql = fnSqlAdminUserUpdate($userNo, $name, $id, $password, $authority);
 		$res = mysqli_query($conn, $sql);
 	} else {
 		$sql = fnSqlAdminUserInsert(fnNextNo('USER'), $name, $id, $password, $authority);
