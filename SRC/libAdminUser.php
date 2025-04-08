@@ -81,11 +81,9 @@ function subAdminUserEdit()
 
 		$purpose  = '更新';
 		$btnImage = 'btn_load.png';
-		$must = '';
 	} else {
 		$purpose = '登録';
 		$btnImage = 'btn_enter.png';
-		$must = '（必須）';
 	}
 
 	subMenu();
@@ -114,8 +112,9 @@ function subAdminUserEdit()
 				</td>
 			</tr>
 			<tr>
-				<th>PASS<span class="red"><?php print $must; ?></span></th>
-				<td><input type="text" name="password" value="" /></td>
+				<th>PASS<?php if ($purpose == "登録"): ?> <span class="red"> （必須）</span><?php endif ?></th>
+				<td><input type="text" name="password" <?php if ($purpose == "更新"): ?> placeholder="*****" <?php endif ?> /></td>
+			</tr>
 			</tr>
 			<tr>
 				<th>所属</th>
@@ -128,6 +127,7 @@ function subAdminUserEdit()
 		<a href="javascript:fnAdminUserEditCheck();"><img src="./images/<?php print $btnImage; ?>" /></a>
 		<a href="javascript:form.act.value='adminUser';form.submit();"><img src="./images/btn_return.png" /></a>
 	</form>
+
 <?php
 }
 
@@ -161,6 +161,7 @@ function subAdminUserEditComplete()
 		$sql = fnSqlAdminUserInsert(fnNextNo('USER'), $name, $id, $password, $authority);
 		$res = mysqli_query($conn, $sql);
 	}
+
 
 	$_REQUEST['act'] = 'adminUser';
 	subAdminUser();
@@ -209,5 +210,4 @@ function subIDRepetition($id)
 	}
 	return false; // 重複なし
 }
-
 ?>

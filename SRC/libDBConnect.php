@@ -36,7 +36,6 @@ function fnSqlAdminUserEdit($userNo)
     return ($sql);
 }
 
-//
 // ユーザー情報更新
 //
 function fnSqlAdminUserUpdate($userNo, $name, $id, $password, $authority)
@@ -52,8 +51,8 @@ function fnSqlAdminUserUpdate($userNo, $name, $id, $password, $authority)
 
     return ($sql);
 }
-
 //
+
 // ユーザー情報登録
 //
 function fnSqlAdminUserInsert($userNo, $name, $id, $password, $authority)
