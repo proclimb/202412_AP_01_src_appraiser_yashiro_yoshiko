@@ -192,7 +192,7 @@ function fnSqlIDRepetition($id)
 	$id = $_REQUEST['id'];
 	$select = "SELECT USERNO,ID";
 	$from = " FROM TBLUSER";
-	$where = " WHERE DEL = 1 AND ID = '$id'";
+	$where = " WHERE ID = '$id'";
 
 	return $select . $from . $where;
 }
